@@ -179,6 +179,23 @@ addEventListener("fetch",event=>{
   event.respondWith(handlerRequest(event))
 })
 
+//主题静态资源代理：GitHub raw 以 text/plain+nosniff 返回，浏览器拒绝应用CSS/JS，经worker转发并修正Content-Type
+async function handle_themeAsset(path){
+  const mime={css:"text/css;charset=utf-8",js:"application/javascript;charset=utf-8",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",svg:"image/svg+xml",webp:"image/webp",ico:"image/x-icon",woff:"font/woff",woff2:"font/woff2",ttf:"font/ttf",map:"application/json"};
+  let ext=(path.split(".").pop()||"").toLowerCase();
+  if(!mime[ext]||path.includes("..")){
+    return new Response("Not found",{status:404});
+  }
+  let upstream=await fetch(OPT.theme_github_path+path,{cf:{cacheTtl:86400}});
+  if(!upstream.ok){
+    return new Response("Not found",{status:404});
+  }
+  return new Response(upstream.body,{
+    headers:{"content-type":mime[ext],"cache-control":"public, max-age=86400"},
+    status:200
+  });
+}
+
 // 处理请求
 async function handlerRequest(event){
   let request = event.request
@@ -208,6 +225,9 @@ async function handlerRequest(event){
   switch(paths[0]){
     case "favicon.ico": //图标
       k = await handle_favicon(request);
+      break;
+    case "_theme": //主题静态资源（CSS/JS/图片）代理，修正Content-Type
+      k = await handle_themeAsset(paths.slice(1).join("/"));
       break;
     case "robots.txt":
       k = await handle_robots(request);
@@ -481,7 +501,7 @@ async function renderBlog(url){
   cfg.keyWords=keyWord;//SEO关键字
   
   //使用mustache.js进行页面渲染（参数替换）
-  cfg.OPT=OPT
+  cfg.OPT=Object.assign({},OPT,{theme_github_path:"https://"+OPT.siteDomain+"/_theme/"})
   
   let html = Mustache.render(theme_html,cfg)
   
@@ -529,7 +549,7 @@ async function handle_article(id){
   cfg.keyWords=keyWord;//SEO关键字
   
   //使用mustache.js渲染页面（参数替换）
-  cfg.OPT=OPT
+  cfg.OPT=Object.assign({},OPT,{theme_github_path:"https://"+OPT.siteDomain+"/_theme/"})
   
   let html = Mustache.render(theme_html,cfg)
 
