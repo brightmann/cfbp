@@ -19,7 +19,7 @@ const OPT = { //网站配置
   "siteName" : "CFBLOG-Plus",//博客名称
   "siteDescription":"CFBLOG-Plus" ,//博客描述
   "keyWords":"cloudflare,KV,workers,blog",//关键字
-  "logo":"https://raw.githubusercontent.com/brightmann/cfbp/main/themes/JustNews/files/logo2.png",//JustNews主题的logo
+  "logo":"/_theme/JustNews/files/logo2.png",//JustNews主题的logo(同源代理)
 
   "theme_github_path":"https://raw.githubusercontent.com/brightmann/cfbp/main/themes/",//主题路径
   "themeURL" : "https://raw.githubusercontent.com/brightmann/cfbp/main/themes/JustNews/", // 模板地址,以 "/"" 结尾
