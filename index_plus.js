@@ -825,7 +825,7 @@ async function handle_admin(request){
     if(6==id.length){
       await CFBLOG.delete(id);
       let e=await getAllArticlesList();
-      for(r=0;r<e.length;r++){
+      for(let r=0;r<e.length;r++){
         if(id==e[r].id){
           e.splice(r,1);
           
