@@ -1,0 +1,11 @@
+name = "cfbp"
+main = "index_plus.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[observability]
+enabled = true
+
+[[kv_namespaces]]
+binding = "CFBLOG"
+id = "48b024af2d734c5b8b806b65f4821e99"
