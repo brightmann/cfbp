@@ -30,7 +30,7 @@ const OPT = { //网站配置
   "recentlySize" : 6,//最近文章数
   "recentlyType" : 1,//最近文章类型：1-按创建时间倒序（按id倒序），2-按修改时间排序
   "readMoreLength":150,//阅读更多截取长度
-  "cacheTime" : 60*60*24*2, //文章在浏览器的缓存时长(秒),建议=文章更新频率
+  "cacheTime" : 60*10, //文章在浏览器的缓存时长(秒),建议=文章更新频率
   "html404" : `<b>404</b>`,//404页面代码
   "codeBeforHead":`
   <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
@@ -202,11 +202,8 @@ async function handlerRequest(event){
       M="https://"+OPT.siteDomain+url.pathname,
       x=new Request(M, request);
   console.log("cacheFullPath:",M);
-  let k=await D.match(x);
-  if(k){
-    console.log("hit cache!")
-    return k;
-  }
+  //不在worker缓存HTML，保证发文/配置后前台立即更新（KV读取很快）
+  let k=null;
 
   switch(paths[0]){
     case "favicon.ico": //图标
@@ -248,8 +245,7 @@ async function handlerRequest(event){
     if("admin"==paths[0]){
       k.headers.set("Cache-Control","no-store")
     }else{
-      k.headers.set("Cache-Control","public, max-age="+OPT.cacheTime),
-      event.waitUntil(D.put(M,k.clone()))
+      k.headers.set("Cache-Control","public, max-age="+OPT.cacheTime)
     }
   }catch(e){}
   
@@ -1141,7 +1137,7 @@ async function parseReq(request){
 async function generateId(){
     //KV中读取文章数量（初始化为1），并格式化为6位，不足6位前面补零
     let article_id_seq=await getIndexNum();
-    if(""===article_id_seq||null===article_id_seq||"[]"===article_id_seq||void 0===article_id_seq){
+    if(""===article_id_seq||null===article_id_seq||"[]"===article_id_seq||void 0===article_id_seq||(Array.isArray(article_id_seq)&&0===article_id_seq.length)||isNaN(parseInt(article_id_seq))){
         await saveIndexNum(1)
         return "000001"
     }else{
