@@ -4,7 +4,7 @@
 const ACCOUNT = { //账号相关，安全性更高
 
   "user" : "admin", //博客后台用户名
-  "password" : (typeof CFBLOG_ADMIN_PW!=="undefined" && CFBLOG_ADMIN_PW) ? CFBLOG_ADMIN_PW : "cfblog-plus", //博客后台密码(优先取workers环境变量CFBLOG_ADMIN_PW)
+  "password" : (typeof CFBLOG_ADMIN_PW!=="undefined" && CFBLOG_ADMIN_PW) ? CFBLOG_ADMIN_PW : "LOCKED-"+Math.random().toString(36).slice(2)+Date.now().toString(36), //博客后台密码：必须配置workers环境变量CFBLOG_ADMIN_PW，未配置时后台锁定(每次启动随机，无人能登录)
   "third_token" : "cfblog", //开放token，当前仅允许访问/admin/search.xml，/admin/sitemap.xml时可用，在cfblog_token的头信息中传递
   "cacheZoneId":"",//区域 ID
   "cacheToken":"",//API token
