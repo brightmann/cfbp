@@ -4,10 +4,10 @@
 const ACCOUNT = { //账号相关，安全性更高
 
   "user" : "admin", //博客后台用户名
-  "password" : "cfblog-plus", //博客后台密码
+  "password" : (typeof CFBLOG_ADMIN_PW!=="undefined" && CFBLOG_ADMIN_PW) ? CFBLOG_ADMIN_PW : "cfblog-plus", //博客后台密码(优先取workers环境变量CFBLOG_ADMIN_PW)
   "third_token" : "cfblog", //开放token，当前仅允许访问/admin/search.xml，/admin/sitemap.xml时可用，在cfblog_token的头信息中传递
-  "cacheZoneId":"935xxxxxxxxxxxx",//区域 ID
-  "cacheToken":"AQxxxxxxxx",//API token
+  "cacheZoneId":"",//区域 ID
+  "cacheToken":"",//API token
 
   "kv_var": this['CFBLOG'],//workers绑定kv时用的变量名
 }
@@ -15,14 +15,14 @@ const ACCOUNT = { //账号相关，安全性更高
 const OPT = { //网站配置
 
   /*--前台参数--*/
-  "siteDomain" : "域名",// 域名(不带https 也不带/)
+  "siteDomain" : "cfbp.brightmann.workers.dev",// 域名(不带https 也不带/)
   "siteName" : "CFBLOG-Plus",//博客名称
   "siteDescription":"CFBLOG-Plus" ,//博客描述
   "keyWords":"cloudflare,KV,workers,blog",//关键字
-  "logo":"https://cdn.jsdelivr.net/gh/Arronlong/cfblog-plus@master/themes/JustNews/files/logo2.png",//JustNews主题的logo
+  "logo":"https://raw.githubusercontent.com/brightmann/cfbp/main/themes/JustNews/files/logo2.png",//JustNews主题的logo
 
-  "theme_github_path":"https://cdn.jsdelivr.net/gh/Arronlong/cfblog-plus@master/themes/",//主题路径
-  "themeURL" : "https://raw.githubusercontent.com/Arronlong/cfblog-plus/master/themes/JustNews/", // 模板地址,以 "/"" 结尾
+  "theme_github_path":"https://raw.githubusercontent.com/brightmann/cfbp/main/themes/",//主题路径
+  "themeURL" : "https://raw.githubusercontent.com/brightmann/cfbp/main/themes/JustNews/", // 模板地址,以 "/"" 结尾
   //"search_xml_url":"", //search.xml外部链接，可通过github的action自动生成，不设置则实时生成
   //"sitemap_xml_url":"", //sitemap.xml外部链接，可通过github的action自动生成，不设置则实时生成
   
