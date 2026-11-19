@@ -977,7 +977,7 @@ function parseBasicAuth(request){
         return false;
     }
     const[user,pwd]=atob(auth.split(" ").pop()).split(":");
-    console.log("-----parseBasicAuth----- ", user, pwd)
+    console.log("-----parseBasicAuth----- user:", user)
     return user===ACCOUNT.user && pwd===ACCOUNT.password
 }
 
