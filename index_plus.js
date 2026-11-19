@@ -142,7 +142,7 @@ Disallow: /admin`,//robots.txt设置
     },300)
 
     //默认图片，工具：https://tool.lu/imageholder/
-    if($('#img').val()=="")$('#img').val('https://cdn.jsdelivr.net/gh/Arronlong/cdn@master/cfblog/cfblog-plus.png');
+    if($('#img').val()=="")$('#img').val('/_theme/JustNews/files/vendor/cfblog-plus.png');
     //默认时间设置为当前时间
     if($('#createDate').val()=="")$('#createDate').val(new Date(new Date().getTime()+8*60*60*1000).toJSON().substr(0,16));
     `, //后台编辑页面脚本
@@ -181,7 +181,7 @@ addEventListener("fetch",event=>{
 
 //主题静态资源代理：GitHub raw 以 text/plain+nosniff 返回，浏览器拒绝应用CSS/JS，经worker转发并修正Content-Type
 async function handle_themeAsset(path){
-  const mime={css:"text/css;charset=utf-8",js:"application/javascript;charset=utf-8",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",svg:"image/svg+xml",webp:"image/webp",ico:"image/x-icon",woff:"font/woff",woff2:"font/woff2",ttf:"font/ttf",map:"application/json"};
+  const mime={css:"text/css;charset=utf-8",js:"application/javascript;charset=utf-8",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",svg:"image/svg+xml",webp:"image/webp",ico:"image/x-icon",woff:"font/woff",woff2:"font/woff2",ttf:"font/ttf",eot:"application/vnd.ms-fontobject",otf:"font/otf",map:"application/json"};
   let ext=(path.split(".").pop()||"").toLowerCase();
   if(!mime[ext]||path.includes("..")){
     return new Response("Not found",{status:404});

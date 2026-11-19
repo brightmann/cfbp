@@ -1545,7 +1545,7 @@
       });
       if (!(window.CSS && window.CSS.supports && window.CSS.supports("(--a: 0)"))) {
         $.ajax({
-          url : "https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2.3.2",
+          url : "/_theme/JustNews/files/vendor/css-vars-ponyfill.js",
           dataType : "script",
           cache : true,
           success : function() {
@@ -1560,7 +1560,7 @@
          */
         var loadTernFile = function() {
           $.ajax({
-            url : "https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.min.js",
+            url : "/_theme/JustNews/files/vendor/plyr.min.js",
             dataType : "script",
             cache : true,
             success : function() {
@@ -1625,7 +1625,7 @@
               });
               if (divs.length) {
                 $.ajax({
-                  url : "https://cdn.jsdelivr.net/npm/hls.js@0.14.12/dist/hls.min.js",
+                  url : "/_theme/JustNews/files/vendor/hls.min.js",
                   dataType : "script",
                   cache : true,
                   success : function() {
@@ -1711,7 +1711,7 @@
              */
             var loadTernFile = function() {
               $.ajax({
-                url : "https://cdn.jsdelivr.net/npm/plyr@3.6.2/dist/plyr.min.js",
+                url : "/_theme/JustNews/files/vendor/plyr.min.js",
                 dataType : "script",
                 cache : true,
                 success : function() {
@@ -1737,7 +1737,7 @@
                   });
                   if (o.length) {
                     $.ajax({
-                      url : "https://cdn.jsdelivr.net/npm/hls.js@0.14.12/dist/hls.min.js",
+                      url : "/_theme/JustNews/files/vendor/hls.min.js",
                       dataType : "script",
                       cache : true,
                       success : function() {
@@ -2253,28 +2253,22 @@
           var name = this;
           if (!window.Promise) {
             jQuery.ajax({
-              url : "https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js",
+              url : "/_theme/JustNews/files/vendor/es6-promise.min.js",
               dataType : "script",
               cache : true,
               success : function() {
               }
             });
             jQuery.ajax({
-              url : "https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js",
+              url : "/_theme/JustNews/files/vendor/es6-promise.auto.min.js",
               dataType : "script",
               cache : true,
               success : function() {
               }
             });
           }
-          /** @type {string} */
-          var a = "1.0.0-rc.7";
-          if (navigator.userAgent.indexOf("Chrome")) {
-            /** @type {string} */
-            a = "1.0.0-rc.1";
-          }
           jQuery.ajax({
-            url : "https://cdn.jsdelivr.net/npm/html2canvas@" + a + "/dist/html2canvas.min.js",
+            url : "/_theme/JustNews/files/vendor/html2canvas.min.js",
             dataType : "script",
             cache : true,
             success : function() {
